@@ -3,7 +3,7 @@ import { Card, Button, CardHeader, CardFooter, CardBody,
     CardTitle, CardText ,Col,Input,FormGroup,Row,Label} from 'reactstrap';
 
 import {connect} from 'react-redux';
-import {getStudentstate,onSearchHandler,searchString,onClearHandler,onAddHandler,getstudentObject,updateAndSaveHandler,onRemoveHandler,ascendingListHandler,descendingListHandler,entryOnSubmitHandler} from '../Student/Reducer';
+import {getStudentstate,onSearchHandler,searchString,onClearHandler,onAddHandler,getstudentObject,updateAndSaveHandler,onRemoveHandler,ascendingListHandler,descendingListHandler,entryOnSubmitHandler,getlistObject} from '../Student/Reducer';
 import StudentEdit from '../../Components/Student/StudentEdit'
 
   
@@ -266,6 +266,7 @@ return(
       console.log("...........selecttttt",this.state.selectedItem.id)
       console.log("........state",this.state)
         console.log("........props",this.props)
+        console.log("kitoooooooooooooo",this.props.list)
        
       const { selectedItem , isOpen} = this.state
         return(
@@ -304,7 +305,8 @@ const mapStateToProps=state=>{
     return{
       studentList: getStudentstate(state),
       dummyObj: getstudentObject(state),
-      searchString: state.searchString
+      searchString: state.searchString,
+     list: getlistObject(state)
 
     }
    }

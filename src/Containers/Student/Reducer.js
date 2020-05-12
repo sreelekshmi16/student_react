@@ -1,7 +1,7 @@
 const list = [
     {
         id: 1, Name: "aadya"
-    }, { id: 2, Name: "bhavya" }, { id: 3, Name: "charu" }, { id: 4, Name: "deepak" }, { id: 5, Name: "Emil" }, { id: 6, Name: "saadya" },
+    }, { id: 2, Name: "bhavya" }, { id: 3, Name: "charu" }, { id: 4, Name: "deepak" }, { id: 5, Name: "Emil" }, { id: 6, Name: "Rohan" },
     { id: 7, Name: "tinu" }, { id: 8, Name: "vedhanth" }, { id: 9, Name: "Jithin" }, { id: 10, Name: "Rithvik" }]
 
 
@@ -94,12 +94,13 @@ export const Reducer = (state = initialState, action) => {
 
             const{searchString} = action.params
             console.log("gssssssssssss===============================================", searchString)
+           
             const newState = { ...state }
+            console.log("ddddddddddddd",newState.list)  
             const searchItemList = newState.list.filter(item => {
-                // if(searchString){
-                console.log("itemmmssssssssss", item)
+
                 if (item.Name.toLowerCase().includes(searchString.toLowerCase())) {
-                    console.log("90000000000", item.Name.toLowerCase().includes(searchString.toLowerCase()))
+                    
                     return item
                 }
                 
@@ -133,10 +134,12 @@ export const Reducer = (state = initialState, action) => {
                 })   
           
             }  
+            
                 else tempArray = newList
                 return {
                     ...newStates,
-                    studentList: [...tempArray]
+                    studentList: [...tempArray],
+                    list:[...tempArray]
                     
                 }
 
@@ -148,6 +151,8 @@ export const Reducer = (state = initialState, action) => {
             const { studentId } = action.params
            
             const currentlist =[...currentState.studentList]
+            const xlist =[...currentState.list]
+            // const currentlist =[...currentState.list]
             console.log("studentlist nowwwwwwwwww", currentlist)
             
           const aa = currentlist.map(item=>{
@@ -159,15 +164,27 @@ export const Reducer = (state = initialState, action) => {
                 }
             } else return item
         })
+     
             console.log("aaaa",aa)
-           
+            const bb = xlist.map(item=>{
+                if(item.id === studentId){
+                    return {
+                        id: item.id,
+                        Name: updatedName,
+                        Isadded: item.Isadded ? item.Isadded : false
+                    }
+                } else return item
+            })
+           console.log("xxxxxxxxxxxxx",bb)
                 // if(item.id===studentId){
                 //     return item.Name === updatedName
                 // }
             // })
           return {
               ...state,
-              studentList: [...aa]
+              studentList: [...aa],
+              list:[...bb]
+              
           }
         
         case DELETE_STUDENT:
@@ -260,7 +277,9 @@ export const getstudentObject=(state)=>{
 export const getStudentstate = (state) => {
     return state.Reducer.studentList
 }
-
+export const getlistObject=(state)=>{
+    return state.Reducer.list
+}
 
 
 // export default Reducer;
